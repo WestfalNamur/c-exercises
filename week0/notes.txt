@@ -1,0 +1,84 @@
+Data Types:
+  - We need to define data types before we can use them.
+  - Basic types inlcude: int32 (signed and unsigned), ASCII, float, double (kinda float64), ...
+  - Type != data type; Example: Void is a type but we can not assign a value to it;
+  - Side effects;
+  - Only 5 types build into C: int (signed and unsigned), ASCII, float, double and Voide; 
+  - During cs50 we can include more types that edx defined for us by importing;
+  - #include <cs50.h> imports: bool, string, 
+  - Structures allow you to group types;
+  - create a variable: int number; or char letter;
+  - create multiple variables of same type: int height, widht;
+  - int number; // declaration;
+  - number = 17 // assignment;
+  - int number = 17 // initialization;
+  - Redeclaring a variable after assingment can lead to wired consequences;
+ 
+Operators:
+  - =, +, -, ==, /, *, %, i++, i--, *=,
+  - Boolean Expressions; In C every non zero value is true;
+    - logical operatios: &&, ||, !;
+    - relational operator: >, <, >=, <=, ==;
+
+Conditionals:
+  - if (boolean-expression0) {
+      // branch 0
+    } else if (boolean-expression1) {
+      // branch 1
+    } else {
+      // branch 2
+    }
+    // Branches a multiple exclusive;
+    // we can chain multiple else if;
+  - if (boolean-expression0) {
+      // branch 0
+    }
+    if (boolean-expression1) {
+      // branch 1
+    }
+    if (boolean-expression2) {
+      // branch 2
+    } else {
+      // branch 3
+    }
+    // multiple branches can be true;
+    // else only binds to the nearest if;
+  - int x = GetInt();
+    switch(x)
+    {
+      case 1:
+        // statement;
+        // break;
+      case 2:
+        // statement;
+        // break;
+      case 3:
+        // statement;
+        // break;
+      defaults:
+        // statement;
+    }
+    // if we omit the break, we would fall through the other statements until defualt;
+  - int x = (expr) ? statementtrue : statementtfalse;
+
+Loops:
+  - while (true) {
+      // runs forever;
+      // until it breaks;
+      // usefull when you want something to run continuously;
+    }
+  - while (boolean-expr) {
+      // repeat until evaluates to false;
+    }
+  - do {
+      // runs atleast one time;
+    } while (boolean-expr);
+  - for (int i = 0; i < 10; i++) {
+      // repeat a descret number of times;
+    }
+    for (start; expr; increment;) {}
+
+Command Line:
+  - chmod, ln, touch, rmdir, man, diff, sudo, clear, telnet;
+
+
