@@ -56,6 +56,39 @@ void mut_encipher_msg()
     }
 }
 
+int find_char_pos(char x, char str[])
+// Check if char is in char[]  // returns 0 || pos of char in KEY;
+{
+    for (int i = 0, n = strlen(str); i < n; i++)
+    {
+        if (x == str[i])
+        {
+            return i + 1; // To avoid 0 = false and 1st char;
+        }
+    }
+    return 0;
+}
+
+void mut_decipher_msg()
+{
+    // decipher global MSG: char[];
+    // loop over chars in MSG
+    //  - get pos of char in KEY
+    //  - add 65 to the pos of char in KEY
+    //  - print it as ASCII
+    for (int i = 0, n = strlen(MSG); i < n; i++)
+    {
+        char c = MSG[i];
+        int char_pos_in_key = find_char_pos(c, KEY);
+        if (char_pos_in_key)
+        {
+            char_pos_in_key = char_pos_in_key - 1; // To avoid 0 = false and 1st char;
+            int char_pos_ascii = char_pos_in_key + 65;
+            MSG[i] = char_pos_ascii;
+        }
+    }
+}
+
 void prnt_msg()
 {
     // prints the msg: gobal char[] + /n;
@@ -73,5 +106,8 @@ int main(void)
     prnt_msg();
     printf("Enciphered: ");
     mut_encipher_msg();
+    prnt_msg();
+    printf("Deciphered: ");
+    mut_decipher_msg();
     prnt_msg();
 };
