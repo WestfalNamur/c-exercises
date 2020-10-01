@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <cs50.h>
 #include <string.h>
 
 /* Substitution
@@ -29,25 +28,50 @@
  * - Take cipher as command-line-arg;
  * - Check cipher;
  * - Use cipher to translate text;
+ * - mut local var not global;
  */
 
 // string = array of chars;
 char KEY[] = "YTNSHKVEFXRBAUQZCLWDMIPGJO";
 char ABC[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-char MSG[] = "HELLO, WORLD!";
+char MSG[] = "ABC_XYZ"; // should become "YTN_GJO";
+int ascii_rng[4] = {65, 90, 97, 122};
 
-
-int main(void)
+void mut_encipher_msg()
 {
+    // encipher global MSG: char[]; i.e. ABC => YTN
     // loop over chars in msg;
-        // Get its pos in normal ASCII  // A=65, B=66, ...;
-        // Calculate corresponding cipher pos
-        // print the enciphered char;
+    //  - if (char in ascii-char range for upper)
+    //    - Get its pos in normal ASCII  // A=65, B=66, ...;
+    //    - Calculate corresponding cipher pos
+    //    - mutate char in char[];
     for (int i = 0, n = strlen(MSG); i < n; i++)
     {
         int pos_ascii = (int)MSG[i];
-        int pos_ciphr = pos_ascii - 65;
-        printf("%c ", KEY[pos_ciphr]);
+        if (ascii_rng[0] <= pos_ascii && pos_ascii <= ascii_rng[1])
+        {
+            int pos_chipr = pos_ascii - 65;
+            MSG[i] = KEY[pos_chipr];
+        }
+    }
+}
+
+void prnt_msg()
+{
+    // prints the msg: gobal char[] + /n;
+    for (int i = 0, n = strlen(MSG); i < n; i++)
+    {
+        printf("%c", MSG[i]);
     }
     printf("\n");
+}
+
+int main(void)
+{
+    // encipher msg => mutate char[];
+    printf("Input: ");
+    prnt_msg();
+    printf("Enciphered: ");
+    mut_encipher_msg();
+    prnt_msg();
 };
