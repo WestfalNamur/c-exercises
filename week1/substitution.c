@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <cs50.h>
 
 /* Substitution
  *
@@ -30,12 +31,45 @@ char ABC[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 int ascii_rng[4] = {65, 90, 97, 122};
 
 // Init funcions;
+void mut_str_to_upper_case(string key);
 void prnt_str(char str[], int len_str);
 void mut_msg_upper(char msg[], char msg_upper[], int msg_upper_bool[], int msg_len);
 void mut_encipher_msg(char msg_upper[], char msg_enciphered[], char CIPHER[], int msg_len);
 
-int main(void)
+int main(int argc, string argv[])
 {
+    // 1.   Get key and validate
+    // 1.1  Get key or retrun 1 if non is provided
+    // 1.2  Key to upper-case
+    // 1.3  key-len == 26?
+    // 1.4  All alphabetic chars in it?
+    if (argc != 2)
+    {
+        printf("Usage: ./substitution KEY");
+        return 1;
+    }
+    string key = argv[1];
+    mut_str_to_upper_case(key);
+    int key_len = strlen(key);
+    if (key_len != 26)
+    {
+        printf("Key must contain 26 characters.");
+        return 1;
+    }
+
+    // 2. Key to upper case
+
+    // 3.   Validate key
+    // 3.1  Is key-len 26?
+    // 3.2  Are all 26 aplahetic chars in it?
+
+    // 4.   Prompt for input text
+
+    // 5.   Encipher
+    //      Preserve case and non-alphabetic characters.
+
+    // 6.   Return enciphered text and return 0;
+
     // take in command line args
     char CIPHER[] = "YTNSHKVEFXRBAUQZCLWDMIPGJO";
     char msg[] = "AbC_XyZ!";
@@ -47,16 +81,30 @@ int main(void)
     char msg_enciphered[msg_len];
 
     // convert MSG to MSGUPPER
-    mut_msg_upper(msg, msg_upper, msg_upper_bool, msg_len);
-    prnt_str(msg, msg_len);
-    prnt_str(msg_upper, msg_len);
+    //mut_msg_upper(msg, msg_upper, msg_upper_bool, msg_len);
+    //prnt_str(msg, msg_len);
+    //prnt_str(msg_upper, msg_len);
 
     // ENCIPHER
-    mut_encipher_msg(msg_upper, msg_enciphered, CIPHER, msg_len);
-    prnt_str(msg_enciphered, msg_len);
+    //mut_encipher_msg(msg_upper, msg_enciphered, CIPHER, msg_len);
+    //prnt_str(msg_enciphered, msg_len);
 
     // DECIPHER
 };
+
+void mut_str_to_upper_case(string str)
+{
+    // mutates the passed (&Ref) string to upper case;
+    for (int i = 0, n = strlen(str); i < n; i++)
+    {
+        char c = (int)str[i];
+        //printf("%c %i \n", c, c);
+        if (97 <= c && 122 >= c)
+        {
+            str[i] = c - 32;
+        }
+    }
+}
 
 void prnt_str(char str[], int len_str)
 {
