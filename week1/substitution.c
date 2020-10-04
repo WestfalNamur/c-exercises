@@ -32,9 +32,13 @@ int ascii_rng[4] = {65, 90, 97, 122};
 
 // Init funcions;
 void mut_str_to_upper_case(string key);
+bool all_abc_chars_in_str(string str, string abc);
+bool char_in_str(char c, string str);
 void prnt_str(char str[], int len_str);
 void mut_msg_upper(char msg[], char msg_upper[], int msg_upper_bool[], int msg_len);
 void mut_encipher_msg(char msg_upper[], char msg_enciphered[], char CIPHER[], int msg_len);
+
+
 
 int main(int argc, string argv[])
 {
@@ -56,12 +60,12 @@ int main(int argc, string argv[])
         printf("Key must contain 26 characters.");
         return 1;
     }
-
-    // 2. Key to upper case
-
-    // 3.   Validate key
-    // 3.1  Is key-len 26?
-    // 3.2  Are all 26 aplahetic chars in it?
+    bool all_alphabet_chars_in_str = all_abc_chars_in_str(key, ABC);
+    if (!all_alphabet_chars_in_str)
+    {
+        printf("Key must only contain alphabetic characters.\n");
+        return 1;
+    }
 
     // 4.   Prompt for input text
 
@@ -104,6 +108,32 @@ void mut_str_to_upper_case(string str)
             str[i] = c - 32;
         }
     }
+}
+
+bool char_in_str(char c, string str)
+{
+    for (int i = 0, n = strlen(str); i < n; i++)
+    {
+        if (c == str[i])
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
+bool all_abc_chars_in_str(string str, string abc)
+{
+    for (int i = 1, n = strlen(str); i < n; i++)
+    {
+        char c = abc[i];
+        bool c_in_str = char_in_str(c, str);
+        if (!c_in_str)
+        {
+            return false;
+        }
+    }
+    return true;
 }
 
 void prnt_str(char str[], int len_str)
