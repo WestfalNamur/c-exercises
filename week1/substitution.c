@@ -23,16 +23,6 @@
  *   capitalized letters; lowercase letters must remain lowercase letters.
  * - After outputting ciphertext, you should print a newline. Your program should
  *   then exit by returning 0 from main.
- * 
- * Structure
- *  - Command line args: (key and phrase);
- *  - 
- *
- * TODO:
- * - Take cipher as command-line-arg;
- * - Check cipher;
- * - Use cipher to translate text;
- * - mut local var not global;
  */
 
 // GLOBALS;
@@ -41,18 +31,20 @@ int ascii_rng[4] = {65, 90, 97, 122};
 
 // Init funcions;
 void prnt_str(char str[], int len_str);
-void mut_msg_upper(char msg[], char msg_upper[], int msg_upper_bool[], int len_msg);
+void mut_msg_upper(char msg[], char msg_upper[], int msg_upper_bool[], int msg_len);
+void mut_encipher_msg(char msg_upper[], char msg_enciphered[], char CIPHER[], int msg_len);
 
 int main(void)
 {
     // take in command line args
-    char KEY[] = "YTNSHKVEFXRBAUQZCLWDMIPGJO";
+    char CIPHER[] = "YTNSHKVEFXRBAUQZCLWDMIPGJO";
     char msg[] = "AbC_XyZ!";
 
     // est. arrays to be mutated;
     int msg_len = strlen(msg);
     char msg_upper[msg_len];
     int msg_upper_bool[msg_len];
+    char msg_enciphered[msg_len];
 
     // convert MSG to MSGUPPER
     mut_msg_upper(msg, msg_upper, msg_upper_bool, msg_len);
@@ -60,6 +52,8 @@ int main(void)
     prnt_str(msg_upper, msg_len);
 
     // ENCIPHER
+    mut_encipher_msg(msg_upper, msg_enciphered, CIPHER, msg_len);
+    prnt_str(msg_enciphered, msg_len);
 
     // DECIPHER
 };
@@ -73,10 +67,10 @@ void prnt_str(char str[], int len_str)
     printf("\n");
 }
 
-void mut_msg_upper(char msg[], char msg_upper[], int msg_upper_bool[], int len_msg)
+void mut_msg_upper(char msg[], char msg_upper[], int msg_upper_bool[], int msg_len)
 {
     // converts char[] to be msg just in upper cases;
-    for (int i = 0; i < len_msg; i++)
+    for (int i = 0; i < msg_len; i++)
     {
         int c = (int)msg[i];
         if (ascii_rng[2] < c && c > ascii_rng[2])
@@ -93,31 +87,23 @@ void mut_msg_upper(char msg[], char msg_upper[], int msg_upper_bool[], int len_m
     }
 }
 
-// // string = array of chars;
-// char KEY[] = "YTNSHKVEFXRBAUQZCLWDMIPGJO";
-// char ABC[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-// char MSG[] = "ABC_XYZ"; // should become "YTN_GJO";
-// int ascii_rng[4] = {65, 90, 97, 122};
-//
-// void mut_encipher_msg()
-// {
-//     // encipher global MSG: char[]; i.e. ABC => YTN
-//     // loop over chars in msg;
-//     //  - if (char in ascii-char range for upper)
-//     //    - Get its pos in normal ASCII  // A=65, B=66, ...;
-//     //    - Calculate corresponding cipher pos
-//     //    - mutate char in char[];
-//     for (int i = 0, n = strlen(MSG); i < n; i++)
-//     {
-//         int pos_ascii = (int)MSG[i];
-//         if (ascii_rng[0] <= pos_ascii && pos_ascii <= ascii_rng[1])
-//         {
-//             int pos_chipr = pos_ascii - 65;
-//             MSG[i] = KEY[pos_chipr];
-//         }
-//     }
-// }
-//
+void mut_encipher_msg(char msg_upper[], char msg_enciphered[], char CIPHER[], int msg_len)
+{
+    for (int i = 0; i < msg_len; i++)
+    {
+        int pos_ascii = (int)msg_upper[i];
+        if (ascii_rng[0] <= pos_ascii && pos_ascii <= ascii_rng[1])
+        {
+            int pos_chipr = pos_ascii - 65;
+            msg_enciphered[i] = CIPHER[pos_chipr];
+        }
+        else
+        {
+            msg_enciphered[i] = msg_upper[i];
+        }
+    }
+}
+
 // int find_char_pos(char x, char str[])
 // // Check if char is in char[]  // returns 0 || pos of char in KEY;
 // {
