@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+void swap(int *a, int *b);
+
 int main(void)
 {
     // hexadecimal ot base 16:
@@ -45,8 +47,32 @@ int main(void)
         t[i] = s[i];
     }
 
+    // Do not forget to free t again!
+    // To check:
+    // clear && clang pointer.c -o pointer && valgrind --leak-check=yes -s ./pointer
+    free(t);
+
     // ... or use a standard lib;
     char str1[5] = "EMMA";
     char str2[strlen(str1)];
     strcpy(str2, str1);
+
+    // Swap
+    int x = 1;
+    int y = 2;
+    printf("x: %i, y: %i \n", x, y);
+    swap(&x, &y);
+    printf("x: %i, y: %i \n", x, y);
+}
+
+void swap(int *a, int *b)
+{
+    // Get passed addresses of two ints: swap(&x, &y);
+    // The function input takes these addresses to point to theses ints;
+    // 1. tmp goes to address *a is pointing to and get the stored value;
+    // 2. *a go to *b and takes what is there to address a;
+    // 3. put what is stored as tmp at the address of *b;
+    int tmp = *a;
+    *a = *b;
+    *b = tmp;
 }
