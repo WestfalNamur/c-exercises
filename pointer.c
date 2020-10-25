@@ -63,6 +63,32 @@ int main(void)
     printf("x: %i, y: %i \n", x, y);
     swap(&x, &y);
     printf("x: %i, y: %i \n", x, y);
+
+    // Notes:
+    // If we have a pointer to char called pc, then *pc is the data that lives
+    // at the memory address stored inside the variable pc;
+    // *: kown as dereference operator => A reference is knowing the address
+    // while a pointer means actually going to that address;
+    // Segmentation fault: happens when dereferencing a NULL pointer;
+    //
+    // Memory, rule of thumb, if a variable has a name is lives on the stack,
+    // is it has no name, on the heap.
+    // Heap and stack share the memory pool.
+    // malloc() gives you a point;
+    //
+    // int x; => staticallly
+    // int *p = malloc(sizeof(int)); => Heap
+    // float stack_array[x];
+    // flaot* heap_array = mallac(x * sizeof(float));
+    //
+    // 3 Rules for working with memory;
+    // 1. Every block of memory that you malloc() must be subsequently be free()d;
+    // 2. Only memory you malloc() should be freed;
+    // 3. Do not free a block of memory more then once;
+    //
+    // Call Stacks
+    // Stack-frame: memory set aside for a function that has been called;
+    // Stack-frames are arranged in a stack; Push & Pop;
 }
 
 void swap(int *a, int *b)
