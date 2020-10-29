@@ -25,13 +25,19 @@ void print_winner(void);
 int main(int argc, string argv[])
 {
     // Check for invalid usage
+    // Populate array of candidates
+    // Get number of voters
+    // Loop over voter counts
+    //   get vote
+    //   check if valid
+    // print winner
+
     if (argc < 2)
     {
         printf("Usage: plurality [candidate ...]\n");
         return 1;
     }
 
-    // Populate array of candidates
     candidate_count = argc - 1;
     if (candidate_count > MAX)
     {
@@ -46,7 +52,6 @@ int main(int argc, string argv[])
 
     int voter_count = get_int("Number of voters: ");
 
-    // Loop over all voters
     for (int i = 0; i < voter_count; i++)
     {
         string name = get_string("Vote: ");
@@ -62,7 +67,6 @@ int main(int argc, string argv[])
     print_winner();
 }
 
-// Update vote totals given a new vote
 bool vote(string name)
 {
     // Take in a name str of the canidates name;
