@@ -20,50 +20,55 @@ int main(int argc, char *argv[])
         printf("key is not 26 chars long");
         return 1;
     }
+
+    // ************************************************************************
+    // KEY TO UPPER
+    char key[strlen(argv[1])];
+    for (int i = 0, n = strlen(argv[1]); i < n; i++)
+    {
+        int ci = (int)argv[1][i];
+        char c;
+        if (ci >= 65 && ci <= 90)
+        {
+            c = ci;
+        }
+        else if (ci >= 97 && ci <= 122)
+        {
+            c = ci - 32;
+        }
+        else
+        {
+            printf("%c is not an ABC char! \n", ci);
+        }
+        key[i] = (char)c;
+    }
+
+    // ************************************************************************
+    // Check key
     for (int i = 0; i < 26; i++)
     {
         char c = ABC[i];
         bool c_in_key = false;
         for (int j = 0; j < 26; j++)
         {
-            if (argv[1][j] == c)
+            if (key[j] == c)
+            {
                 c_in_key = true;
+            }
         }
         if (c_in_key == false)
         {
-            printf("%c not in ABC", c);
+            printf("%c not in ABC \n", c);
             return 1;
         }
     }
 
     // ************************************************************************
-    string msg = get_string("Input: ");
+    string msg = get_string("plaintext: ");
     int msg_upper_012[strlen(msg)];
-    char key[strlen(argv[1])];
     char msg_upper[strlen(msg)];
     char msg_upper_enrypted[strlen(msg)];
     char msg_enrypted[strlen(msg)];
-
-    printf("plaintext: ");
-    prnt_str(msg);
-
-    // ************************************************************************
-    // KEY TO UPPER
-    for (int i = 0, n = strlen(argv[1]); i < n; i++)
-    {
-        int ci = (int)argv[1][i];
-        char c;
-        if (ci >= 65 && ci <= 90)
-            c = ci;
-        else if (ci >= 97 && ci <= 122)
-            c = ci - 32;
-        else
-            printf("%c is not an ABC char!", ci);
-        key[i] = (char)c;
-    }
-
-    printf("key: ");
-    prnt_str(key);
 
     // ************************************************************************
     //  TO UPPER
@@ -86,8 +91,6 @@ int main(int argc, char *argv[])
             msg_upper_012[i] = 2;
         }
     }
-    //printf("plaintext upper: ");
-    //prnt_str(msg_upper);
 
     // ************************************************************************
     // ENCRYPT UPPER
@@ -96,18 +99,14 @@ int main(int argc, char *argv[])
         int c = (int)msg_upper[i];
         if (c >= 65 && c <= 90)
         {
-            int x = argv[1][c - 65];
+            int x = key[c - 65];
             msg_upper_enrypted[i] = (char)x;
-            // printf("In: %c  Out: %c \n", c, msg_upper_enrypted[i]);
         }
         else
         {
             msg_upper_enrypted[i] = (char)c;
-            // printf("In: %c  Out: %c \n", c, msg_upper_enrypted[i]);
         }
     }
-    // printf("encrypted upper: ");
-    // prnt_str(msg_upper_enrypted);
 
     // ************************************************************************
     // ADD CASING back
@@ -116,11 +115,16 @@ int main(int argc, char *argv[])
         int u = msg_upper_012[i];
         int c;
         if (u == 0)
+        {
             c = (int)msg_upper_enrypted[i] + 32;
+        }
         else
+        {
             c = (int)msg_upper_enrypted[i];
+        }
         msg_enrypted[i] = (char)c;
     }
+    msg_enrypted[strlen(msg)] = '\0';
     printf("ciphertext: ");
     prnt_str(msg_enrypted);
 
