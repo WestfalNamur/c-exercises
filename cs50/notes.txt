@@ -80,5 +80,7 @@ Loops:
 
 Command Line:
   - chmod, ln, touch, rmdir, man, diff, sudo, clear, telnet;
+  - Compile, check and run a *.c file:
+  - clear && clang substitution.c -lcs50 -o substitution && valgrind --leak-check=yes -s ./substitution 
 
 
